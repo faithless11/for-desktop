@@ -4,7 +4,8 @@ import { defineConfig } from "vite";
 export default defineConfig({
   build: {
     rollupOptions: {
-      external: ["node-pipewire"],
+      // stoat-custom: uiohook-napi (global push-to-talk) is native as well
+      external: ["node-pipewire", "uiohook-napi"],
     },
   },
 });
