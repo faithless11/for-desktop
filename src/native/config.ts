@@ -74,8 +74,9 @@ const store = new Store({
  * Shim for `electron-store` because typings are broken
  */
 class Config {
-  sync() {
-    mainWindow.webContents.send("config", {
+  // stoat-custom: snapshot, also handed to the preload synchronously
+  snapshot(): DesktopConfig {
+    return {
       firstLaunch: this.firstLaunch,
       customFrame: this.customFrame,
       minimiseToTray: this.minimiseToTray,
@@ -84,7 +85,11 @@ class Config {
       hardwareAcceleration: this.hardwareAcceleration,
       discordRpc: this.discordRpc,
       windowState: this.windowState,
-    });
+    };
+  }
+
+  sync() {
+    mainWindow.webContents.send("config", this.snapshot());
   }
 
   get firstLaunch() {
@@ -210,6 +215,12 @@ class Config {
 }
 
 export const config = new Config();
+
+// stoat-custom: the page may read the config before "did-finish-load" sends it
+// (fast start from the service worker cache), so the preload fetches it up front
+ipcMain.on("config:get", (event) => {
+  event.returnValue = config.snapshot();
+});
 
 ipcMain.on("config", (_, newConfig: Partial<DesktopConfig>) => {
   console.info("Received new configuration", newConfig);
