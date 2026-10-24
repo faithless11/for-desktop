@@ -1,6 +1,7 @@
 import { contextBridge, ipcRenderer } from "electron";
 
-let config: DesktopConfig;
+// stoat-custom: available from the start, not only after "did-finish-load"
+let config: DesktopConfig = ipcRenderer.sendSync("config:get");
 
 ipcRenderer.on("config", (_, data) => (config = data));
 
