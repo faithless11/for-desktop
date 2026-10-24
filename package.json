@@ -2,7 +2,7 @@
   "name": "stoat-4designs",
   "productName": "stoat-4designs",
   "description": "Stoat desktop client for st.4designs.de",
-  "version": "1.5.4-c1",
+  "version": "1.5.4-c2",
   "main": ".vite/build/main.js",
   "repository": "faithless11/for-desktop",
   "scripts": {
