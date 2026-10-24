@@ -1,9 +1,10 @@
 {
-  "name": "stoat-desktop",
-  "productName": "stoat-desktop",
-  "version": "1.5.4",
+  "name": "stoat-4designs",
+  "productName": "stoat-4designs",
+  "description": "Stoat desktop client for st.4designs.de",
+  "version": "1.5.4-c1",
   "main": ".vite/build/main.js",
-  "repository": "stoatchat/desktop",
+  "repository": "faithless11/for-desktop",
   "scripts": {
     "start": "electron-forge start -- --no-sandbox",
     "package": "electron-forge package",

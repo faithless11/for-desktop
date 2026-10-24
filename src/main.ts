@@ -54,7 +54,8 @@ const onNotifyUser = (_info: IUpdateInfo) => {
 
 if (acquiredLock) {
   // start auto update logic
-  updateElectronApp({ onNotifyUser });
+  // stoat-custom: updates only from our own fork's releases
+  updateElectronApp({ repo: "faithless11/for-desktop", onNotifyUser });
 
   // create and configure the app when electron is ready
   app.on("ready", () => {
@@ -75,7 +76,8 @@ if (acquiredLock) {
 
     // Windows specific fix for notifications
     if (process.platform === "win32") {
-      app.setAppUserModelId("chat.stoat.notifications");
+      // stoat-custom: own id, can be installed next to the official client
+      app.setAppUserModelId("de.4designs.stoat");
     }
   });
 

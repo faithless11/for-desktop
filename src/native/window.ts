@@ -23,7 +23,8 @@ export let mainWindow: BrowserWindow;
 export const BUILD_URL = new URL(
   app.commandLine.hasSwitch("force-server")
     ? app.commandLine.getSwitchValue("force-server")
-    : /*MAIN_WINDOW_VITE_DEV_SERVER_URL ??*/ "https://stoat.chat/app",
+    : // stoat-custom: own self-hosted instance
+      /*MAIN_WINDOW_VITE_DEV_SERVER_URL ??*/ "https://st.4designs.de",
 );
 
 // internal window state

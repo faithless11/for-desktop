@@ -12,10 +12,11 @@ import path from "node:path";
 
 // import { globSync } from "node:fs";
 
+// stoat-custom: own names, can be installed next to the official client
 const STRINGS = {
   author: "Revolt Platforms LTD",
-  name: "Stoat",
-  execName: "stoat-desktop",
+  name: "Stoat4designs",
+  execName: "stoat-4designs",
   description: "Open source user-first chat platform.",
 };
 
