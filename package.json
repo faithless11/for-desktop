@@ -1,9 +1,10 @@
 {
-  "name": "stoat-desktop",
-  "productName": "stoat-desktop",
-  "version": "1.5.4",
+  "name": "stoat-4designs",
+  "productName": "stoat-4designs",
+  "description": "Stoat desktop client for st.4designs.de",
+  "version": "1.5.4-c1",
   "main": ".vite/build/main.js",
-  "repository": "stoatchat/desktop",
+  "repository": "faithless11/for-desktop",
   "scripts": {
     "start": "electron-forge start -- --no-sandbox",
     "package": "electron-forge package",
@@ -57,6 +58,7 @@
     "discord-rpc": "^4.0.1",
     "electron-squirrel-startup": "^1.0.1",
     "electron-store": "^10.1.0",
+    "uiohook-napi": "^1.5.5",
     "update-electron-app": "^3.1.1",
     "utf-8-validate": "^6.0.5"
   },

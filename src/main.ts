@@ -12,6 +12,9 @@ import { initTray } from "./native/tray";
 import { initVirtualMic } from "./native/virtualMic";
 import { BUILD_URL, createMainWindow, mainWindow } from "./native/window";
 
+// stoat-custom: global push-to-talk
+import { destroyPtt, initPtt } from "./native/custom/ptt";
+
 // In Flatpak, we have to update the temp dir to a shared directory across host and sandbox;
 // otherwise, the icon will not show up in the tray when using app indicators.
 if (process.platform === "linux" && process.env.FLATPAK_ID) {
@@ -54,7 +57,8 @@ const onNotifyUser = (_info: IUpdateInfo) => {
 
 if (acquiredLock) {
   // start auto update logic
-  updateElectronApp({ onNotifyUser });
+  // stoat-custom: updates only from our own fork's releases
+  updateElectronApp({ repo: "faithless11/for-desktop", onNotifyUser });
 
   // create and configure the app when electron is ready
   app.on("ready", () => {
@@ -71,13 +75,19 @@ if (acquiredLock) {
     initTray();
     initDiscordRpc();
     initVirtualMic();
+    // stoat-custom: global push-to-talk
+    initPtt();
     initAutoLaunch();
 
     // Windows specific fix for notifications
     if (process.platform === "win32") {
-      app.setAppUserModelId("chat.stoat.notifications");
+      // stoat-custom: own id, can be installed next to the official client
+      app.setAppUserModelId("de.4designs.stoat");
     }
   });
+
+  // stoat-custom: stop the global push-to-talk hook
+  app.on("will-quit", destroyPtt);
 
   // focus the window if we try to launch again
   app.on("second-instance", () => {

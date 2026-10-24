@@ -12,10 +12,11 @@ import path from "node:path";
 
 // import { globSync } from "node:fs";
 
+// stoat-custom: own names, can be installed next to the official client
 const STRINGS = {
   author: "Revolt Platforms LTD",
-  name: "Stoat",
-  execName: "stoat-desktop",
+  name: "Stoat4designs",
+  execName: "stoat-4designs",
   description: "Open source user-first chat platform.",
 };
 
@@ -114,6 +115,22 @@ const config: ForgeConfig = {
   hooks: {
     // Copy the node-pipewire dist to the app on linux
     packageAfterCopy: async (_config, buildPath, _version, platform) => {
+      // stoat-custom: ship uiohook-napi (global push-to-talk) with its prebuilt binary
+      if (platform === "win32") {
+        for (const entry of [
+          "uiohook-napi/dist",
+          "uiohook-napi/prebuilds/win32-x64",
+          "uiohook-napi/package.json",
+          "uiohook-napi/LICENSE",
+          "node-gyp-build",
+        ]) {
+          fs.cpSync(
+            path.join("node_modules", entry),
+            path.join(buildPath, "node_modules", entry),
+            { recursive: true },
+          );
+        }
+      }
       if (platform === "linux") {
         // Copy only the files we need to run the code, which is dist, LICENSE, and package.json
         fs.cpSync(
